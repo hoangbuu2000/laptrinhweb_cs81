@@ -1,0 +1,16 @@
+﻿@model ArticleManagement.Models.Article
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-sm-8">
+        <h2>@Model.Title</h2>
+        <hr />
+        <p class="text-info">@Model.Category.Description</p>
+        <p>@Model.Author.Name</p>
+        <p>@Model.PubDate</p>
+        @Html.Raw(Model.Content)
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@model PagedList.IPagedList<ArticleManagement.Models.Article>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row" style="margin-top:40px; display:flex; flex-wrap:wrap">
+@foreach(var item in Model)
+{
+    <div class="col-md-4" style="display:flex; flex-direction:column">
+        <a href="@Url.Action("Details", "Articles", new { id = item.ArticleId})">
+            <img src="@item.Images[0].Url" alt="Hinh bi loi nhe"
+                 style="width: 100%; position:relative; height:250px" />
+        </a>
+        @*<a href="@Url.Action("Details", "Articles", new { id = item.ArticleId})" class="glyphicon glyphicon-link btn btn-success"
+           style="position:absolute; top:30%; left:35%">
+            Chi tiết
+        </a>*@
+        @*@Html.RouteLink("Chi tiết", "ChiTietTinTuc", new { id = item.ArticleId },
+        htmlAttributes: new
+        {
+            @class = "glyphicon glyphicon-link btn btn-success",
+            @style = "position:absolute; top:35%; left:35%"
+        })*@
+        <a href="@Url.Action("Details", "Articles", new { id = item.ArticleId })">
+            <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+        </a>
+        @if (item.Category.Description == "RSS")
+        {
+            <pre style="white-space:pre-wrap;">@Html.Raw(@item.Content.Substring(item.Content.IndexOf("<div class="), item.Content.IndexOf("</h2>")))</pre>
+        }
+        else
+        {
+            <pre style="white-space:pre-wrap;">@Html.Raw(@item.Content.Substring(0, item.Content.IndexOf("\n")))</pre>
+        }
+    </div>
+}
+</div>
+
+<br />
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

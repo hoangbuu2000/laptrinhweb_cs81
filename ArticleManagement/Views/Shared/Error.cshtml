@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <hgroup>
+        <h1>Error.</h1>
+        <h2>@ViewBag.Error</h2>
+        @Html.ActionLink("Quay lại", "Index", "Articles", 
+       new { @class = "glyphicon glyphicon-circle-arrow-left", @style = "font-size:20px" })
+    </hgroup>
+</body>
+</html>
